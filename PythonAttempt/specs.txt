@@ -1,0 +1,4 @@
+3, Bearing Type
+55.0, Diameter
+44.0, Width
+65.5, Mass

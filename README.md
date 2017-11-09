@@ -6,7 +6,7 @@
 ## Getting Started
 
   It requires NumPy, SciPy, and matplotlib. To install the required
-  packages, run the command 
+  packages, run the command
   ```
   pip3 install -U -r requirements.txt
   ```
@@ -56,4 +56,17 @@
   exactly 200 points in a bezier spline shape given two lists of
   coordinate pairs (x and y values).
 
-  This code is initially written by Zach Lerner.
+## The Features We Want
+
+  * The calculation of mass by a numerical integration subroutine
+   written for non-evenly spaced data, and specification of a material
+   in `specs.txt`.
+    * A document with common materials and their densities indexed
+    and tabulated for future call.
+
+  * The calculation of non-dimensional rim weight
+
+  * The ability to select a bearing type from a list of other bearing types
+
+  This code is maintained by Zach Lerner.
+  2017.11.09

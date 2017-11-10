@@ -5,7 +5,7 @@ from matplotlib.path import Path
 import matplotlib.patches as patches
 from scipy.special import binom
 from Bezier import Bezier
-
+import BearingSubtract
 '''
     This code will be structured for the purpose of having a running
 calculation of mass.  In order to properly propogate this,

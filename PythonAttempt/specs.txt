@@ -3,3 +3,5 @@
 44.0, Width
 65.5, Mass
 8.0, Axle Length
+1, Axle unit type
+3.3, Pilot Hole Diameter

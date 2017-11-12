@@ -17,7 +17,7 @@
     $sudo apt-get install pip3
     apt-get install python-numpy python-scipy python-matplotlib
     pip3 install -U -r requirements.txt
-    $python3 pythonattempt01.py
+    $python3 pythonattempt02.py
     ```
 
   The design of the yoyo is done in four user created files.
@@ -32,7 +32,7 @@
 
   By downloading all files in the "PythonAttempt" folder and running
   ```
-  $python3 pythonattempt01.py
+  $python3 pythonattempt02.py
   ```
   It should go off without a hitch, and plot the yoyo profile with
   matplotlib.  If this does not happen, try the following.
@@ -42,7 +42,7 @@
     $pip3 install numpy
     $pip3 install scipy
     $pip3 install matplotlib
-    $python3 pythonattempt01.py
+    $python3 pythonattempt02.py
 ```
 
   Currently, as of 2017.11.09, profile.txt, rim.txt, and cup.txt do not

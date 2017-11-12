@@ -98,7 +98,7 @@ Cx, Cy, RimWeightRatio = centroid(bulkmat)
 
 # EVERYTHING AFTER THIS POINT IS JUST PLOTTING. I SHOULD REALLY MAKE THIS
 # ... A FUNCTION INSTEAD.
-'''
+
 font = {'family': 'sans',
         'color':  'black',
         'weight': 'normal',
@@ -117,10 +117,50 @@ plt.text(13, 2, 'RimWeightRatio = %s' % RimWeight_s)
 plt.plot(megamatx, megamaty, 'k')
 # And now the bearing seat must be plotted.
 plt.plot(Bdata[:,0], Bdata[:,1], 'k')
+
+Sdata = np.genfromtxt('specs.txt', usecols=0, delimiter=',', dtype=None)
+Pdata = np.loadtxt('profile.txt', delimiter=',')
+Rdata = np.loadtxt('rim.txt', delimiter=',')
+Cdata = np.loadtxt('cup.txt',delimiter=',')
+x1 = []
+y1 = []
+x2 = []
+y2 = []
+x3 = []
+y3 = []
+x4 = []
+y4 = []
+for i in range(0, len(Bdata)):
+    x1 = np.append(x1, Bdata[i, 0])
+    y1 = np.append(y1, Bdata[i, 1])
+# Generates coordinates of profile
+for i in range(0, len(Pdata)):
+    x2 = np.append(x2, Pdata[i, 0])
+    y2 = np.append(y2, Pdata[i, 1])
+# Generates coordinates of rim
+for i in range(0, len(Rdata)):
+    x3 = np.append(x3, Rdata[i, 0])
+    y3 = np.append(y3, Rdata[i, 1])
+# Generates coordinates of cup
+for i in range(0, len(Cdata)):
+    x4 = np.append(x4, Cdata[i, 0])
+    y4 = np.append(y4, Cdata[i, 1])
+
+plt.plot(x2, y2, "ro")
+plt.plot(x2, y2, "b--")
+plt.plot(x3,y3, "ro")
+plt.plot(x3,y3, "b--")
+plt.plot(x4,y4, "ro")
+plt.plot(x4,y4, "b--")
+
+
+
+
+
 plt.axis('equal')
 plt.savefig('figure.png')
 plt.show()
-'''
+
 # EVERYTHING AFTER THIS POINT PERTAINS TO THE RUNNING DXF FILE THAT IS GOING TO BE CREATED WITH EVERY ITERATION.
 # For the Profile ---
 Bmatrix = np.loadtxt('BearingSeatCoords_C.txt')

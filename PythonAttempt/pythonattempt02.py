@@ -5,7 +5,7 @@ from matplotlib.path import Path
 import matplotlib.patches as patches
 from scipy.special import binom
 from Bezier import Bezier
-import BearingSubtract
+from BearingSubtract import BearingSubtract
 '''
     This code will be structured for the purpose of having a running
 calculation of mass.  In order to properly propogate this,
@@ -13,7 +13,7 @@ a function which determines volume subtracted will be neccesary.
 '''
 
 # First, a blank of appropriate size will be created from 'specs.txt'
-Sdata = np.genfromtxt('specs.txt', usecols=0, delimiter=',', dtype=None)
+Sdata = np.genfromtxt('specs.txt', usecols = 0, delimiter=',', dtype=None)
 # Sdata[0] = bearing type.  If it is '3', then it uses a C bearing
 # Sdata[1] = Diameter, blank "height" will be gotten by halving this
 # Sdata[2] = Width, blank "length" will be gotten by halving this
@@ -26,4 +26,6 @@ Blank_Radius = Sdata[1]/2
 Blank_Length = Sdata[2]/2
 Blank_Volume = ((Blank_Radius**2)*math.pi)*Blank_Length
 # ALL VOLUMES WILL BE MEASURED IN CUBIC MILIMETERS
-
+RunningVolume = Blank_Volume
+# THIS IS THE SUBTRACTION OF THE CUT FROM THE BEARING
+RunningVolume = RunningVolume -  BearingSubtract(3)

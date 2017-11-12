@@ -9,6 +9,7 @@ from BearingSubtract import BearingSubtract
 from ProfileSubtract import ProfileSubtract
 from RimSubtract import RimSubtract
 from CupSubtract import CupSubtract
+from centroid import centroid
 '''
     This code will be structured for the purpose of having a running
 calculation of mass.  In order to properly propogate this,
@@ -87,6 +88,15 @@ cup = np.column_stack((Cx, Cy))
 megamat = np.concatenate((prof,rim,cup),axis=0)
 megamatx = np.concatenate((Px, Rx, Cx),axis=0)
 megamaty = np.concatenate((Py, Ry, Cy),axis=0)
+
+# Now, I want to calculate rim weight coeficient
+# First, I need area
+Bdata = np.loadtxt('BearingSeatCoords_C.txt')
+bulkmat = np.concatenate((Bdata,megamat), axis=0)
+Cx, Cy, RimWeightRatio = centroid(bulkmat)
+print(Cx, Cy, RimWeightRatio)
+# EVERYTHING AFTER THIS POINT IS JUST PLOTTING. I SHOULD REALLY MAKE THIS
+# ... A FUNCTION INSTEAD.
 font = {'family': 'sans',
         'color':  'black',
         'weight': 'normal',
@@ -97,9 +107,14 @@ plt.xlabel('z axis (mm)',fontdict=font)
 plt.ylabel('x axis (mm)',fontdict=font)
 mass = str(halfmass)[:6]
 plt.text(15, 5, 'mass =%s grams' % (mass))
+Cxs = str(Cx)[:5]
+Cys = str(Cy)[:5]
+plt.text(12,3.5, 'Center of mass @ (%s, %s)' %(Cxs, Cys))
+RimWeight_s = str(RimWeightRatio)[:6]
+plt.text(13, 2, 'RimWeightRatio = %s' % RimWeight_s)
 plt.plot(megamatx, megamaty, 'k')
-# And now the bearing seat must be plotted
-Bdata = np.loadtxt('BearingSeatCoords_C.txt')
+# And now the bearing seat must be plotted.
 plt.plot(Bdata[:,0], Bdata[:,1], 'k')
 plt.axis('equal')
 plt.savefig('figure.png')
+plt.show()

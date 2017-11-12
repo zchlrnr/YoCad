@@ -7,6 +7,7 @@ from scipy.special import binom
 from Bezier import Bezier
 from BearingSubtract import BearingSubtract
 from ProfileSubtract import ProfileSubtract
+from RimSubtract import RimSubtract
 '''
     This code will be structured for the purpose of having a running
 calculation of mass.  In order to properly propogate this,
@@ -43,4 +44,15 @@ for i in range(0,len(Pdata)):
 # ... which compose the Bezier curve
 Px, Py = Bezier(list(zip(Pxc, Pyc))).T
 RunningVolume = RunningVolume - ProfileSubtract(Px, Py, RunningVolume)
+# Now, the volume of the rim needs to be subtracted
+# Rxc and Ryx are the coordinates of the control points in from
+# ...'rim.txt'
+Rxc = []
+Ryc = []
+Rdata = np.loadtxt('rim.txt', delimiter=',')
+for i in range(0,len(Rdata)):
+    Rxc = np.append(Rxc, Rdata[i,0])
+    Ryc = np.append(Ryc, Rdata[i,1])
+Rx, Ry = Bezier(list(zip(Rxc,Ryc))).T
+RunningVolume = RunningVolume - RimSubtract(Rx, Ry, RunningVolume)
 print(RunningVolume)

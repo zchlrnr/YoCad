@@ -1,7 +1,7 @@
 def ProfileSubtract(Px, Py, RunningVolume):
     import numpy as np
     from washer import washer
-    from math import pi
+    
     # This will basically be a numerical integration subroutine
     # ... That calls washer.py
     # (x2-x1)*((y2+y1)/2)

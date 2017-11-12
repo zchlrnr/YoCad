@@ -10,6 +10,7 @@ from ProfileSubtract import ProfileSubtract
 from RimSubtract import RimSubtract
 from CupSubtract import CupSubtract
 from centroid import centroid
+
 '''
     This code will be structured for the purpose of having a running
 calculation of mass.  In order to properly propogate this,
@@ -97,6 +98,7 @@ Cx, Cy, RimWeightRatio = centroid(bulkmat)
 print(Cx, Cy, RimWeightRatio)
 # EVERYTHING AFTER THIS POINT IS JUST PLOTTING. I SHOULD REALLY MAKE THIS
 # ... A FUNCTION INSTEAD.
+'''
 font = {'family': 'sans',
         'color':  'black',
         'weight': 'normal',
@@ -118,3 +120,13 @@ plt.plot(Bdata[:,0], Bdata[:,1], 'k')
 plt.axis('equal')
 plt.savefig('figure.png')
 plt.show()
+'''
+# EVERYTHING AFTER THIS POINT PERTAINS TO THE RUNNING DXF FILE THAT IS GOING TO BE CREATED WITH EVERY ITERATION.
+# For the Profile ---
+# HEY BUCK LOOK FOR ME!!
+from dxfwrite import DXFEngine as dxf
+drawing = dxf.drawing('drawing.dxf')
+polyline= dxf.polyline(linetype='LINE')
+polyline.add_vertices([prof])
+drawing.add(polyline)
+drawing.save()

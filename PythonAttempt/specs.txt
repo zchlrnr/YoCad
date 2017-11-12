@@ -5,3 +5,4 @@
 8.0, Axle Length
 1, Axle unit type
 3.3, Pilot Hole Diameter
+2700, Density In kg/m^3

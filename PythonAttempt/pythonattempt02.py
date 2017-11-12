@@ -95,7 +95,7 @@ megamaty = np.concatenate((Py, Ry, Cy),axis=0)
 Bdata = np.loadtxt('BearingSeatCoords_C.txt')
 bulkmat = np.concatenate((Bdata,megamat), axis=0)
 Cx, Cy, RimWeightRatio = centroid(bulkmat)
-print(Cx, Cy, RimWeightRatio)
+
 # EVERYTHING AFTER THIS POINT IS JUST PLOTTING. I SHOULD REALLY MAKE THIS
 # ... A FUNCTION INSTEAD.
 '''
@@ -123,10 +123,17 @@ plt.show()
 '''
 # EVERYTHING AFTER THIS POINT PERTAINS TO THE RUNNING DXF FILE THAT IS GOING TO BE CREATED WITH EVERY ITERATION.
 # For the Profile ---
-# HEY BUCK LOOK FOR ME!!
+Bmatrix = np.loadtxt('BearingSeatCoords_C.txt')
+Bmatrix2 = [(float(x[0]), float(x[1]),) for x in Bmatrix]
+prof2 = [(float(x[0]), float(x[1]),) for x in prof]
+rim2 = [(float(x[0]), float(x[1]),) for x in rim]
+cup2 = [(float(x[0]), float(x[1]),) for x in cup]
 from dxfwrite import DXFEngine as dxf
 drawing = dxf.drawing('drawing.dxf')
 polyline= dxf.polyline(linetype='LINE')
-polyline.add_vertices([prof])
+polyline.add_vertices(Bmatrix2)
+polyline.add_vertices(prof2)
+polyline.add_vertices(rim2)
+polyline.add_vertices(cup2)
 drawing.add(polyline)
 drawing.save()

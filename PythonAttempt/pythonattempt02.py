@@ -79,3 +79,27 @@ halfmass = RunningVolume*density * (10**3) #THIS IS IN GRAMS
 The next step is the generation of a graphical read out to for the
 use to be able to see what it is they are doing.
 '''
+# Now I will add all the non-bearing seat data points together to form
+# ... single, monolothic array: Recall that they are Px, Py, Rx, Ry, and Cx, Cy
+prof = np.column_stack((Px, Py))
+rim = np.column_stack((Rx, Ry))
+cup = np.column_stack((Cx, Cy))
+megamat = np.concatenate((prof,rim,cup),axis=0)
+megamatx = np.concatenate((Px, Rx, Cx),axis=0)
+megamaty = np.concatenate((Py, Ry, Cy),axis=0)
+font = {'family': 'sans',
+        'color':  'black',
+        'weight': 'normal',
+        'size': 16,
+        }
+plt.title('Scale Quarter Section (mm)', fontdict=font)
+plt.xlabel('z axis (mm)',fontdict=font)
+plt.ylabel('x axis (mm)',fontdict=font)
+mass = str(halfmass)[:6]
+plt.text(15, 5, 'mass =%s grams' % (mass))
+plt.plot(megamatx, megamaty, 'k')
+# And now the bearing seat must be plotted
+Bdata = np.loadtxt('BearingSeatCoords_C.txt')
+plt.plot(Bdata[:,0], Bdata[:,1], 'k')
+plt.axis('equal')
+plt.savefig('figure.png')

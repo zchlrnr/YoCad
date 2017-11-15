@@ -22,7 +22,6 @@ def minthick(Bdata, Sdata, prof, rim, cup):
             d = dist(x1,y1,x2,y2)
             if d <= floatingminthick:
                 floatingminthick = d
-                print(floatingminthick)
     for i in range(0,len(prof)):
         for j in range(0,len(cup)):
             x1 = prof[i,0]
@@ -32,9 +31,5 @@ def minthick(Bdata, Sdata, prof, rim, cup):
             d = dist(x1,y1,x2,y2)
             if d <= floatingminthick:
                 floatingminthick = d
-                print(floatingminthick)
-    #for i in range(0,len(Bdata)):
-
-    #for i in range(0,len(Bdata)):
 
     return floatingminthick

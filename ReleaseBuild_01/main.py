@@ -11,6 +11,7 @@ from RimSubtract import RimSubtract
 from CupSubtract import CupSubtract
 from centroid import centroid
 from minthick import minthick
+from threedgen import threedgen
 Bdata = np.loadtxt('BearingSeatCoords_C.txt')
 Sdata = np.genfromtxt('specs.txt', usecols = 0, delimiter=',', dtype=None)
 Pdata = np.loadtxt('profile.txt', delimiter=',')
@@ -52,42 +53,59 @@ megamatx = np.concatenate((Px, Rx, Cx),axis=0)
 megamaty = np.concatenate((Py, Ry, Cy),axis=0)
 bulkmat = np.concatenate((Bdata,megamat), axis=0)
 Cx, Cy, RimWeightRatio = centroid(bulkmat)
-# CHECKING MINIMUM WALL THICKNESS
+
+# CHECKING MINIMUM WALL THICKNESS AGAINST SPECIFIED ALLOWABLE MINIMUM
 floatingminthick = minthick(Bdata, Sdata, prof, rim, cup)
-print(floatingminthick)
-# ALL BELOW PERTAINS TO PLOTTING
-font = {'family': 'sans',
-        'color':  'black',
-        'weight': 'normal',
-        'size': 16,
-        }
-plt.title('Scale Quarter Section (mm)', fontdict=font)
-plt.xlabel('z axis (mm)',fontdict=font)
-plt.ylabel('x axis (mm)',fontdict=font)
-mass = str(halfmass)[:6]
-plt.text(15, 5, 'mass =%s grams' % (mass))
-Cxs = str(Cx)[:5]
-Cys = str(Cy)[:5]
-plt.text(12,3.5, 'Center of mass @ (%s, %s)' %(Cxs, Cys))
-RimWeight_s = str(RimWeightRatio)[:6]
-plt.text(13, 2, 'RimWeightRatio = %s' % RimWeight_s)
-plt.plot(megamatx, megamaty, 'k')
-# And now the bearing seat must be plotted.
-plt.plot(Bdata[:,0], Bdata[:,1], 'k')
-plt.axis('equal')
-plt.savefig('figure.png')
-plt.grid()
-plt.show()
-Bmatrix2 = [(float(x[0]), float(x[1]),) for x in Bmatrix]
-prof2 = [(float(x[0]), float(x[1]),) for x in prof]
-rim2 = [(float(x[0]), float(x[1]),) for x in rim]
-cup2 = [(float(x[0]), float(x[1]),) for x in cup]
-from dxfwrite import DXFEngine as dxf
-drawing = dxf.drawing('drawing.dxf')
-polyline= dxf.polyline(linetype='LINE')
-polyline.add_vertices(Bmatrix2)
-polyline.add_vertices(prof2)
-polyline.add_vertices(rim2)
-polyline.add_vertices(cup2)
-drawing.add(polyline)
-drawing.save()
+thick_criteria = 0.5 #this is in millimeters
+
+# ERROR CHECKING OCCURS IN THIS SECTION
+# IF AN ERROR OCCURS, THEN THE BREAKFLAG, HEREFORTH SET EQUAL TO ZERO,
+# ... WILL BE SET EQUAL TO A NON-ZERO VALUE
+breakflag = 0
+if floatingminthick <= thick_criteria:
+    breakflag = 1
+    print("ERRROR: YOUR DESIGN VIOLATES MINIMUM WALL THICKNESS")
+    print("THIS CAN EITHER BE DUE TO SELF INTERSECTION, OR A GENUINELY")
+    print("TOO THIN WALL.")
+
+# OUTPUT SECTION
+if breakflag == 0:
+    font = {'family': 'sans',
+            'color':  'black',
+            'weight': 'normal',
+            'size': 16,
+            }
+    plt.title('Scale Quarter Section (mm)', fontdict=font)
+    plt.xlabel('z axis (mm)',fontdict=font)
+    plt.ylabel('x axis (mm)',fontdict=font)
+    mass = str(halfmass)[:6]
+    plt.text(15, 5, 'mass =%s grams' % (mass))
+    Cxs = str(Cx)[:5]
+    Cys = str(Cy)[:5]
+    plt.text(12,3.5, 'Center of mass @ (%s, %s)' %(Cxs, Cys))
+    RimWeight_s = str(RimWeightRatio)[:6]
+    plt.text(13, 2, 'RimWeightRatio = %s' % RimWeight_s)
+    plt.plot(megamatx, megamaty, 'k')
+    # And now the bearing seat must be plotted.
+    plt.plot(Bdata[:,0], Bdata[:,1], 'k')
+    plt.axis('equal')
+    plt.savefig('figure.png')
+    plt.grid()
+    plt.show()
+    #Generation of 3d plot in matplotlib
+    angsteps = 360
+    threedgen(bulkmat, angsteps)
+    # Generation of CAD file
+    Bmatrix2 = [(float(x[0]), float(x[1]),) for x in Bdata]
+    prof2 = [(float(x[0]), float(x[1]),) for x in prof]
+    rim2 = [(float(x[0]), float(x[1]),) for x in rim]
+    cup2 = [(float(x[0]), float(x[1]),) for x in cup]
+    from dxfwrite import DXFEngine as dxf
+    drawing = dxf.drawing('drawing.dxf')
+    polyline= dxf.polyline(linetype='LINE')
+    polyline.add_vertices(Bmatrix2)
+    polyline.add_vertices(prof2)
+    polyline.add_vertices(rim2)
+    polyline.add_vertices(cup2)
+    drawing.add(polyline)
+    drawing.save()

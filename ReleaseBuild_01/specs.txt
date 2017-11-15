@@ -6,3 +6,4 @@
 1, Axle unit type
 3.3, Pilot Hole Diameter
 2700, Density In kg/m^3
+1.5, Minimum Wall Thickness in mm

@@ -56,7 +56,7 @@ Cx, Cy, RimWeightRatio = centroid(bulkmat)
 
 # CHECKING MINIMUM WALL THICKNESS AGAINST SPECIFIED ALLOWABLE MINIMUM
 floatingminthick = minthick(Bdata, Sdata, prof, rim, cup)
-thick_criteria = 0.5 #this is in millimeters
+thick_criteria = Sdata[8] #this is in millimeters
 
 # ERROR CHECKING OCCURS IN THIS SECTION
 # IF AN ERROR OCCURS, THEN THE BREAKFLAG, HEREFORTH SET EQUAL TO ZERO,

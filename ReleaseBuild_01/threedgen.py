@@ -4,7 +4,6 @@ import numpy as np
 import math
 from math import pi
 def threedgen(bulkmat, angsteps):
-
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     x=[]

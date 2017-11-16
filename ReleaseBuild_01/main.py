@@ -12,6 +12,7 @@ from CupSubtract import CupSubtract
 from centroid import centroid
 from minthick import minthick
 from threedgen import threedgen
+from fracturearea import fracturearea
 Bdata = np.loadtxt('BearingSeatCoords_C.txt')
 Sdata = np.genfromtxt('specs.txt', usecols = 0, delimiter=',', dtype=None)
 Pdata = np.loadtxt('profile.txt', delimiter=',')
@@ -53,7 +54,7 @@ megamatx = np.concatenate((Px, Rx, Cx),axis=0)
 megamaty = np.concatenate((Py, Ry, Cy),axis=0)
 bulkmat = np.concatenate((Bdata,megamat), axis=0)
 Cx, Cy, RimWeightRatio = centroid(bulkmat)
-
+print(bulkmat)
 # CHECKING MINIMUM WALL THICKNESS AGAINST SPECIFIED ALLOWABLE MINIMUM
 floatingminthick = minthick(Bdata, Sdata, prof, rim, cup)
 thick_criteria = Sdata[8] #this is in millimeters
@@ -67,8 +68,11 @@ if floatingminthick <= thick_criteria:
     print("ERRROR: YOUR DESIGN VIOLATES MINIMUM WALL THICKNESS")
     print("THIS CAN EITHER BE DUE TO SELF INTERSECTION, OR A GENUINELY")
     print("TOO THIN WALL.")
+    #Yeah, this ain't workin, yet.
+    farea = fracturearea(floatingminthick, thick_criteria, Sdata, prof, rim, cup)
 
 # OUTPUT SECTION
+breakflag = 0
 if breakflag == 0:
     font = {'family': 'sans',
             'color':  'black',
@@ -76,8 +80,8 @@ if breakflag == 0:
             'size': 16,
             }
     plt.title('Scale Quarter Section (mm)', fontdict=font)
-    plt.xlabel('z axis (mm)',fontdict=font)
-    plt.ylabel('x axis (mm)',fontdict=font)
+    plt.xlabel('x axis (mm)',fontdict=font)
+    plt.ylabel('y axis (mm)',fontdict=font)
     mass = str(halfmass)[:6]
     plt.text(15, 5, 'mass =%s grams' % (mass))
     Cxs = str(Cx)[:5]

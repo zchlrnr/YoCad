@@ -97,7 +97,7 @@ if breakflag == 0:
     plt.grid()
     plt.show()
     #Generation of 3d plot in matplotlib
-    angsteps = 360
+    angsteps = 30
     threedgen(bulkmat, angsteps)
     # Generation of CAD file
     Bmatrix2 = [(float(x[0]), float(x[1]),) for x in Bdata]

@@ -54,7 +54,6 @@ megamatx = np.concatenate((Px, Rx, Cx),axis=0)
 megamaty = np.concatenate((Py, Ry, Cy),axis=0)
 bulkmat = np.concatenate((Bdata,megamat), axis=0)
 Cx, Cy, RimWeightRatio = centroid(bulkmat)
-print(bulkmat)
 # CHECKING MINIMUM WALL THICKNESS AGAINST SPECIFIED ALLOWABLE MINIMUM
 floatingminthick = minthick(Bdata, Sdata, prof, rim, cup)
 thick_criteria = Sdata[8] #this is in millimeters

@@ -33,4 +33,5 @@ def fracturearea(floatingminthick, thick_criteria, Sdata, prof, rim, cup):
                 fareax = np.append(fareax, cup[i,0])
                 fareay = np.append(fareay, cup[i,1])
     farea = np.column_stack((fareax, fareay))
+    print(farea)
     return farea

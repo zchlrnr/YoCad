@@ -13,8 +13,9 @@ from centroid import centroid
 from minthick import minthick
 from threedgen import threedgen
 from fracturearea import fracturearea
-Bdata = np.loadtxt('BearingSeatCoords_C.txt')
+from ReadBearing import ReadBearing
 Sdata = np.genfromtxt('specs.txt', usecols = 0, delimiter=',', dtype=None)
+Bdata = ReadBearing(Sdata)
 Pdata = np.loadtxt('profile.txt', delimiter=',')
 Rdata = np.loadtxt('rim.txt', delimiter=',')
 Cdata = np.loadtxt('cup.txt', delimiter = ',')
@@ -68,8 +69,7 @@ if floatingminthick <= thick_criteria:
     print("THIS CAN EITHER BE DUE TO SELF INTERSECTION, OR A GENUINELY")
     print("TOO THIN WALL.")
     #Yeah, this ain't workin, yet.
-    farea = fracturearea(floatingminthick, thick_criteria, Sdata, prof, rim, cup)
-
+    #farea = fracturearea(floatingminthick, thick_criteria, Sdata, prof, rim, cup)
 # OUTPUT SECTION
 
 font = {'family': 'sans',
@@ -90,13 +90,15 @@ plt.text(13, 2, 'RimWeightRatio = %s' % RimWeight_s)
 plt.plot(megamatx, megamaty, 'k')
 # And now the bearing seat must be plotted.
 plt.plot(Bdata[:,0], Bdata[:,1], 'k')
+if thickflag == 1:
+    plt.fill(farea[:,0],farea[:,1], 'k', alpha=0.3)
 plt.plot()
 plt.axis('equal')
 plt.savefig('figure.png')
 plt.grid()
 plt.show()
 #Generation of 3d plot in matplotlib
-angsteps = 30
+angsteps = 20
 threedgen(bulkmat, angsteps)
 # Generation of CAD file
 Bmatrix2 = [(float(x[0]), float(x[1]),) for x in Bdata]

@@ -12,7 +12,7 @@ def Bernstein(n, k):
     return _bpoly
 
 
-def Bezier(points, num=50):
+def Bezier(points, num=100):
     # Build Bézier curve from points.
     N = len(points)
     t = np.linspace(0, 1, num=num)

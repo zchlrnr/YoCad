@@ -14,6 +14,7 @@ from minthick import minthick
 from threedgen import threedgen
 from fracturearea import fracturearea
 from ReadBearing import ReadBearing
+from Bulkmat import Bulkmat
 Sdata = np.genfromtxt('specs.txt', usecols = 0, delimiter=',', dtype=None)
 Bdata = ReadBearing(Sdata)
 Pdata = np.loadtxt('profile.txt', delimiter=',')
@@ -50,7 +51,6 @@ halfmass = RunningVolume*density * (10**3)
 '''
 This section creates the megamatrix of points connected by lines to
 one another.  IT OMITS THE BEARING SEAT
-'''
 prof = np.column_stack((Px, Py))
 rim = np.column_stack((Rx, Ry))
 cup = np.column_stack((Cx, Cy))
@@ -58,6 +58,10 @@ megamat = np.concatenate((prof,rim,cup),axis=0)
 megamatx = np.concatenate((Px, Rx, Cx),axis=0)
 megamaty = np.concatenate((Py, Ry, Cy),axis=0)
 bulkmat = np.concatenate((Bdata,megamat), axis=0)
+'''
+# This is the new version of the code above
+megamatx, megamaty, prof, rim, cup, bulkmat = Bulkmat(Px, Py, Rx, Ry, Cx, Cy, Bdata)
+print(bulkmat)
 #Creates coordinate pair that makes up physical location of centroid of
 #... 2d quarter section, and computes RimWeightRatio
 Cx, Cy, RimWeightRatio = centroid(bulkmat)

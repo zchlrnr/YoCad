@@ -69,7 +69,7 @@ if floatingminthick <= thick_criteria:
     print("THIS CAN EITHER BE DUE TO SELF INTERSECTION, OR A GENUINELY")
     print("TOO THIN WALL.")
     #Yeah, this ain't workin, yet.
-    #farea = fracturearea(floatingminthick, thick_criteria, Sdata, prof, rim, cup)
+    farea = fracturearea(floatingminthick, thick_criteria, Sdata, prof, rim, cup)
 # OUTPUT SECTION
 
 font = {'family': 'sans',

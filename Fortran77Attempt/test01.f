@@ -19,7 +19,7 @@ C-----"'N' IS THE POINT OF MAX DIAMETER; 'M IS POINT OF MAX WIDTH'"---C
       parameter(pointspercurve=100)
       counter = 0
       open(10,file='bx.txt')
-      open(11,file='by.txt')
+      iopen(11,file='by.txt')
       do 10 i = 1, largenum
         read(10,*,end=11)
         counter = counter + 1

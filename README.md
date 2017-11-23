@@ -45,7 +45,11 @@
     $pip3 install dxfwrite
     $python3 pythonattempt02.py
 ```
+  Currently, as of 2017.11.24, profile.txt, rim.txt, and cup.txt do not
+  actively interface with 'specs.txt' or with eachother. A subroutine
+  
 
+  (ALL THINGS BENEATH THIS ARE OUTDATE AS OF NOVEMBER 23RD)
   Currently, as of 2017.11.09, profile.txt, rim.txt, and cup.txt do not
   actively interface w/ 'specs.txt' or with eachother, however it will
   (and must) in the future. There is only one file which contains

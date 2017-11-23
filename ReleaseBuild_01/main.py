@@ -47,6 +47,10 @@ Cx, Cy = Bezier(list(zip(Cxc, Cyc))).T
 RunningVolume = RunningVolume - CupSubtract(Cx, Cy)
 density = Sdata[7]/(10**(9))
 halfmass = RunningVolume*density * (10**3)
+'''
+This section creates the megamatrix of points connected by lines to
+one another.  IT OMITS THE BEARING SEAT
+'''
 prof = np.column_stack((Px, Py))
 rim = np.column_stack((Rx, Ry))
 cup = np.column_stack((Cx, Cy))
@@ -54,11 +58,12 @@ megamat = np.concatenate((prof,rim,cup),axis=0)
 megamatx = np.concatenate((Px, Rx, Cx),axis=0)
 megamaty = np.concatenate((Py, Ry, Cy),axis=0)
 bulkmat = np.concatenate((Bdata,megamat), axis=0)
+#Creates coordinate pair that makes up physical location of centroid of
+#... 2d quarter section, and computes RimWeightRatio
 Cx, Cy, RimWeightRatio = centroid(bulkmat)
 # CHECKING MINIMUM WALL THICKNESS AGAINST SPECIFIED ALLOWABLE MINIMUM
 floatingminthick = minthick(Bdata, Sdata, prof, rim, cup)
 thick_criteria = Sdata[8] #this is in millimeters
-
 # ERROR CHECKING OCCURS IN THIS SECTION
 # IF AN ERROR OCCURS, THEN THE BREAKFLAG, HEREFORTH SET EQUAL TO ZERO,
 # ... WILL BE SET EQUAL TO A NON-ZERO VALUE
@@ -71,7 +76,7 @@ if floatingminthick <= thick_criteria:
     #Yeah, this ain't workin, yet.
     farea = fracturearea(floatingminthick, thick_criteria, Sdata, prof, rim, cup)
 # OUTPUT SECTION
-
+# Configuration of the text in the 2d image
 font = {'family': 'sans',
         'color':  'black',
         'weight': 'normal',
@@ -87,9 +92,13 @@ Cys = str(Cy)[:5]
 plt.text(12,3.5, 'Center of mass @ (%s, %s)' %(Cxs, Cys))
 RimWeight_s = str(RimWeightRatio)[:6]
 plt.text(13, 2, 'RimWeightRatio = %s' % RimWeight_s)
+#THIS ONE LINE BELOW IS RESPONSIBLE FOR PLOTTING EVERYTHING THAT I
+#... NOT THE BEARING SEAT
 plt.plot(megamatx, megamaty, 'k')
-# And now the bearing seat must be plotted.
+#This plots the bearing seat, WITHOUT AXLE HOLE YET DRILLED .
 plt.plot(Bdata[:,0], Bdata[:,1], 'k')
+#This plots the section of filled area if and only if the minimum wall
+#... thickness criteria is violated.
 if thickflag == 1:
     plt.fill(farea[:,0],farea[:,1], 'k', alpha=0.3)
 plt.plot()

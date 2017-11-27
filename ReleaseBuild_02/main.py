@@ -19,5 +19,4 @@ Blank_Length = Sdata[2]/2
 Blank_Volume = ((Blank_Radius**2)*math.pi)*Blank_Length
 RunningVolume = Blank_Volume
 RunningVolume = RunningVolume - BearingSubtract(3,Sdata)
-#TRIM CALLS BULKMAT WHICH CREATES A PLOT!!
 megamatx, megamaty, prof, rim, cup, bulkmat, halfmass = trim(RunningVolume,Sdata,Bdata,Pdata,Rdata,Cdata)

@@ -48,20 +48,8 @@ Cx, Cy = Bezier(list(zip(Cxc, Cyc))).T
 RunningVolume = RunningVolume - CupSubtract(Cx, Cy)
 density = Sdata[7]/(10**(9))
 halfmass = RunningVolume*density * (10**3)
-'''
-This section creates the megamatrix of points connected by lines to
-one another.  IT OMITS THE BEARING SEAT
-prof = np.column_stack((Px, Py))
-rim = np.column_stack((Rx, Ry))
-cup = np.column_stack((Cx, Cy))
-megamat = np.concatenate((prof,rim,cup),axis=0)
-megamatx = np.concatenate((Px, Rx, Cx),axis=0)
-megamaty = np.concatenate((Py, Ry, Cy),axis=0)
-bulkmat = np.concatenate((Bdata,megamat), axis=0)
-'''
-# This is the new version of the code above
+# This populates matrices for plotting
 megamatx, megamaty, prof, rim, cup, bulkmat = Bulkmat(Px, Py, Rx, Ry, Cx, Cy, Bdata, Pdata, Rdata, Cdata)
-print(bulkmat)
 #Creates coordinate pair that makes up physical location of centroid of
 #... 2d quarter section, and computes RimWeightRatio
 Cx, Cy, RimWeightRatio = centroid(bulkmat)
@@ -79,37 +67,6 @@ if floatingminthick <= thick_criteria:
     print("TOO THIN WALL.")
     #Yeah, this ain't workin, yet.
     farea = fracturearea(floatingminthick, thick_criteria, Sdata, prof, rim, cup)
-# OUTPUT SECTION
-# Configuration of the text in the 2d image
-#font = {'family': 'sans',
-#        'color':  'black',
-#        'weight': 'normal',
-#        'size': 16,
-#        }
-#plt.title('Scale Quarter Section (mm)', fontdict=font)
-#plt.xlabel('x axis (mm)',fontdict=font)
-#plt.ylabel('y axis (mm)',fontdict=font)
-#mass = str(halfmass)[:6]
-#plt.text(15, 5, 'mass =%s grams' % (mass))
-#Cxs = str(Cx)[:5]
-#Cys = str(Cy)[:5]
-#plt.text(12,3.5, 'Center of mass @ (%s, %s)' %(Cxs, Cys))
-#RimWeight_s = str(RimWeightRatio)[:6]
-#plt.text(13, 2, 'RimWeightRatio = %s' % RimWeight_s)
-#THIS ONE LINE BELOW IS RESPONSIBLE FOR PLOTTING EVERYTHING THAT I
-#... NOT THE BEARING SEAT
-#plt.plot(megamatx, megamaty, 'k')
-#This plots the bearing seat, WITHOUT AXLE HOLE YET DRILLED .
-#plt.plot(Bdata[:,0], Bdata[:,1], 'k')
-#This plots the section of filled area if and only if the minimum wall
-#... thickness criteria is violated.
-#if thickflag == 1:
-#    plt.fill(farea[:,0],farea[:,1], 'k', alpha=0.3)
-#plt.axis('equal')
-#plt.savefig('figure.png')
-#plt.grid()
-#plt.show()
-#Generation of 3d plot in matplotlib
 angsteps = 20
 threedgen(bulkmat, angsteps)
 # Generation of CAD file

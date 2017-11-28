@@ -1,8 +1,6 @@
 #-----THIS IS THE IMPLEMENTATION OF THE BEZIER CURVE SUBROUTINE-------#
 import numpy as np
 from scipy.special import binom
-
-
 def Bernstein(n, k):
     # Bernstein polynomial.
     coeff = binom(n, k)
@@ -10,8 +8,6 @@ def Bernstein(n, k):
     def _bpoly(x):
         return coeff * x ** k * (1 - x) ** (n - k)
     return _bpoly
-
-
 def Bezier(points, num=100):
     # Build Bézier curve from points.
     N = len(points)

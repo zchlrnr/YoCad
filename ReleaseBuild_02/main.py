@@ -5,6 +5,8 @@ import math
 from ReadBearing import ReadBearing
 from BearingSubtract import BearingSubtract
 from trim import trim
+from pngmaker import pngmaker
+from dxfmaker import dxfmaker
 sfile = sys.argv[1]
 pfile = sys.argv[2]
 rfile = sys.argv[3]
@@ -20,3 +22,5 @@ Blank_Volume = ((Blank_Radius**2)*math.pi)*Blank_Length
 RunningVolume = Blank_Volume
 RunningVolume = RunningVolume - BearingSubtract(3,Sdata)
 megamatx, megamaty, prof, rim, cup, bulkmat, halfmass = trim(RunningVolume,Sdata,Bdata,Pdata,Rdata,Cdata)
+pngmaker(Bdata, Pdata, Rdata, Cdata, megamatx, megamaty)
+dxfmaker(Bdata,prof,rim,cup)

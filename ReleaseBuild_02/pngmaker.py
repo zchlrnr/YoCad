@@ -1,3 +1,6 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
 def pngmaker(Bdata, Pdata, Rdata, Cdata, megamatx, megamaty):
     x1 = []
     y1 = []
@@ -44,3 +47,4 @@ def pngmaker(Bdata, Pdata, Rdata, Cdata, megamatx, megamaty):
     plt.savefig('figure.png')
     plt.grid()
     plt.show()
+    return

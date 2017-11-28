@@ -6,6 +6,12 @@ from RimSubtract import RimSubtract
 from CupSubtract import CupSubtract
 from Bulkmat import Bulkmat
 def trim(RunningVolume,Sdata,Bdata,Pdata,Rdata,Cdata):
+    '''
+    It is the job of the trim function to generate the unified polyline
+    curves of the yoyo as well as calculate the volume of the final yoyo
+    half by calling the individual, pupose built subtracting functions
+    of each yoyo section
+    '''
     Pxc = []
     Pyc = []
     Rxc = []

@@ -1,9 +1,11 @@
-def BearingSubtract(Sdata):
+def BearingSubtract(Bdata, Sdata):
     import numpy as np
     from math import pi
     from washer import washer
+    # This code returns the subtracted volume of the bearing from the
+    #... volume of the original blank. 
     if Sdata[0] == 3:
-        matrix = np.loadtxt('BearingSeatCoords_C.txt')
+        matrix = Bdata
         matrix = np.delete(matrix, (0), axis=0)
         matrix = np.array(matrix)
         vtot = 826.45

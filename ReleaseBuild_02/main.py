@@ -42,7 +42,7 @@ Blank_Volume = ((Blank_Radius**2)*math.pi)*Blank_Length
 RunningVolume = Blank_Volume
 
 #This performs the subtractive operation to cut the desired bearing
-RunningVolume = RunningVolume - BearingSubtract(Sdata)
+RunningVolume = RunningVolume - BearingSubtract(Bdata,Sdata)
 
 #Calls'trim' function to 'cut away' rest of blank and leave mass accurate
 #... yoyo curve shape

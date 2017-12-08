@@ -8,7 +8,11 @@ from trim import trim
 from pngmaker import pngmaker
 from dxfmaker import dxfmaker
 from inputchecker import inputchecker
+from cloudify import cloudify
 
+#call of the form
+#python3 main.py ...
+#... 'specs.txt' 'profile.txt' 'rim.txt' 'cup.txt'
 #These writes the passed in filename strings to variables
 sfile = sys.argv[1]
 pfile = sys.argv[2]
@@ -48,8 +52,13 @@ RunningVolume = RunningVolume - BearingSubtract(Bdata,Sdata)
 #... yoyo curve shape
 megamatx, megamaty, prof, rim, cup, bulkmat, halfmass = trim(RunningVolume,Sdata,Bdata,Pdata,Rdata,Cdata)
 
+#Determination of Properly Formatted 3d Point Cloud for STL generation
+ubermat=np.column_stack((bulkmat,np.zeros(len(bulkmat))))
+angsteps = 30
+cloudify(ubermat,angsteps)
+
 #Generates png of the final yoyo geometry and displays the control points
-pngmaker(Bdata, Pdata, Rdata, Cdata, megamatx, megamaty)
+#pngmaker(Bdata, Pdata, Rdata, Cdata, megamatx, megamaty)
 
 #Generates DXF file of the final yoyo geometry
 dxfmaker(Bdata,prof,rim,cup)

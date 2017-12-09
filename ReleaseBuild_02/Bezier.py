@@ -8,7 +8,7 @@ def Bernstein(n, k):
     def _bpoly(x):
         return coeff * x ** k * (1 - x) ** (n - k)
     return _bpoly
-def Bezier(points, num=50):
+def Bezier(points, num=100):
     # Build Bézier curve from points.
     N = len(points)
     t = np.linspace(0, 1, num=num)

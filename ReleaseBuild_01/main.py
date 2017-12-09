@@ -68,6 +68,7 @@ if floatingminthick <= thick_criteria:
     #Yeah, this ain't workin, yet.
     farea = fracturearea(floatingminthick, thick_criteria, Sdata, prof, rim, cup)
 angsteps = 20
+print(bulkmat)
 threedgen(bulkmat, angsteps)
 # Generation of CAD file
 Bmatrix2 = [(float(x[0]), float(x[1]),) for x in Bdata]

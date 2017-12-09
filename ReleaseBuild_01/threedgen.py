@@ -28,6 +28,9 @@ def threedgen(bulkmat, angsteps):
     ax = fig.add_subplot(1, 1, 1, projection='3d')
     ax2 = fig.add_axes([0.1,0.7,0.15,.2])
     ax2.plot(xy[:,0],xy[:,1], color="k")
+    print(X)
+    print(Y)
+    print(Z)
     ax.plot_surface(Z, Y, X, alpha=1, color='gold', rstride=1, cstride=1)
     plt.subplots_adjust(left=None, bottom=None, right=0.52, top=0.90, wspace = None, hspace=None)
     proj3d.persp_transformation = orthogonal_proj

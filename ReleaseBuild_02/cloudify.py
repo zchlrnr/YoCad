@@ -44,21 +44,20 @@ def cloudify(ubermat, angsteps):
     icount = 0
     for i in cylmat:
         jcount = 0
-        for j in range(angsteps):
+        for j in range(angsteps-1):
             x = (icount*(angsteps-1)) + jcount
             y = (icount*(angsteps-1)) + angsteps + jcount
             z = (icount*(angsteps-1)) + angsteps + jcount + 1
             faces.append([x, y, z])
             jcount = jcount + 1
         kcount = 0
-        for k in range(angsteps):
+        for k in range(angsteps-1):
             x = (icount*(angsteps-1)) + kcount
             y = (icount*(angsteps-1)) + angsteps + kcount + 1
             z = (icount*(angsteps-1)) + kcount + 1
             faces.append([x, y, z])
             kcount = kcount + 1
         icount = icount + 1
-
 
     points = np.array(points)
     faces = np.array(faces)
